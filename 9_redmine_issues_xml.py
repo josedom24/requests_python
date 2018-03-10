@@ -1,9 +1,10 @@
 import requests
 from lxml import etree
 import os
+key=os.environ["key"]
 URL_BASE="http://dit.gonzalonazareno.org/redmine"
-payload={"key":os.environ["key_redmine"]}
-proyecto=raw_input("Proyecto:")
+payload={"key":key}
+proyecto=input("Proyecto:")
 r=requests.get(URL_BASE+'/projects.xml',params=payload)
 if r.status_code == 200:
 	doc = etree.fromstring(r.text.encode ('utf-8'))
@@ -21,8 +22,8 @@ if r.status_code == 200:
 				names=doc.findall("issue/subject")
 				descriptions=doc.findall("issue/description")	
 				for name,desc in zip(names,descriptions):
-					print name.text
-					print desc.text
+					print (name.text)
+					print (desc.text)
 
 	if not encontrado:
-		print "Proyecto no existe"
+		print ("Proyecto no existe")

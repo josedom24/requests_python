@@ -1,7 +1,7 @@
 import requests
 from lxml import etree
-
-payload = {'key':'466f4055fe2f206676793d544b06ddee64b45432'}
+key=os.environ["key"]
+payload = {'key':key}
 
 
 r=requests.get('http://dit.gonzalonazareno.org/redmine/projects.xml',params=payload)
@@ -17,11 +17,10 @@ if r.status_code == 200:
 r = requests.delete('http://dit.gonzalonazareno.org/redmine/projects/%s.xml'%id_project, params=payload)
 
 
-
 if r.status_code==200:
- 	print "ok"
+ 	print ("ok")
  else:
- 	print "Error: "+r.text
+ 	print ("Error: "+r.text)
 	
 
 
