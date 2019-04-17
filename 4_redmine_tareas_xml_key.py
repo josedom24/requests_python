@@ -11,19 +11,19 @@ payload = {'key':key}
 r=requests.get('http://dit.gonzalonazareno.org/redmine/projects.xml',params=payload)
 if r.status_code == 200:
 	doc = etree.fromstring(r.text.encode ('utf-8'))
-	projects=doc.findall("project")
+	projects=doc.xpath("project")
 	for p in projects:
-		if p.find("name").text==proyecto: 
-			id_project=p.find("id").text
+		if p.xpath("name/text()")[0]==proyecto: 
+			id_project=p.xpath("id/text()")[0]
 
 
 payload = {'status_id':'open','limit':'5','project_id':id_project,'key':key}
 r=requests.get('http://dit.gonzalonazareno.org/redmine/issues.xml',params=payload)
 if r.status_code == 200:
 	doc = etree.fromstring(r.text.encode ('utf-8'))
-	tareas=doc.findall("issue")
+	tareas=doc.xpath("issue")
 	for t in tareas:
-		print (t.find("assigned_to").attrib["name"])
-		print (t.find("subject").text)
+		print (t.xpath("assigned_to/@name")[0])
+		print (t.xpath("subject/text()")[0])
 else:
 	print ("Error de proyecto")

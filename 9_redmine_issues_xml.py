@@ -8,19 +8,19 @@ proyecto=input("Proyecto:")
 r=requests.get(URL_BASE+'/projects.xml',params=payload)
 if r.status_code == 200:
 	doc = etree.fromstring(r.text.encode ('utf-8'))
-	projects=doc.findall("project/name")
-	ids=doc.findall("project/id")
+	projects=doc.xpath("project/name/text()")
+	ids=doc.xpath("project/id/text()")
 	encontrado=False
 	for p,id in zip(projects,ids):
-		if p.text==proyecto:
+		if p==proyecto:
 			encontrado=True
 			payload["limit"]=5
-			payload["project_id"]=id.text
+			payload["project_id"]=id
 			r=requests.get(URL_BASE+'/issues.xml',params=payload)
 			if r.status_code==200:
 				doc = etree.fromstring(r.text.encode ('utf-8'))
-				names=doc.findall("issue/subject")
-				descriptions=doc.findall("issue/description")	
+				names=doc.xpath("issue/subject")
+				descriptions=doc.xpath("issue/description")	
 				for name,desc in zip(names,descriptions):
 					print (name.text)
 					print (desc.text)

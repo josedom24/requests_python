@@ -7,10 +7,10 @@ payload = {'key':key}
 r=requests.get('http://dit.gonzalonazareno.org/redmine/projects.xml',params=payload)
 if r.status_code == 200:
 	doc = etree.fromstring(r.text.encode ('utf-8'))
-	projects=doc.findall("project")
+	projects=doc.xpath("project")
 	for p in projects:
-		if p.find("name").text=="test project": 
-			id_project=p.find("id").text
+		if p.xpath("name/text()")[0]=="test project": 
+			id_project=p.xpath("id/text()")[0]
 
 
 
