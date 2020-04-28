@@ -1,5 +1,7 @@
 import requests
 import os
+URL_BASE="https://dit.gonzalonazareno.org/redmine/"
+
 key=os.environ["key"]
 payload = {'key':key}
 
@@ -15,7 +17,7 @@ xml_project="""
 
 
 headers = {'Content-Type': 'application/xml'}
-r = requests.post('http://dit.gonzalonazareno.org/redmine/projects.xml', params=payload, data=xml_project, headers=headers)
+r = requests.post(URL_BASE+'projects.xml', params=payload, data=xml_project, headers=headers)
 if r.status_code==201:
 	print ("ok")
 else:

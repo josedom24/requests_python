@@ -1,10 +1,12 @@
 import requests
+import os
 from lxml import etree
+URL_BASE="https://dit.gonzalonazareno.org/redmine/"
 key=os.environ["key"]
 payload = {'key':key}
 
 
-r=requests.get('http://dit.gonzalonazareno.org/redmine/projects.xml',params=payload)
+r=requests.get(URL_BASE+'projects.xml',params=payload)
 if r.status_code == 200:
 	doc = etree.fromstring(r.text.encode ('utf-8'))
 	projects=doc.xpath("project")
@@ -14,12 +16,12 @@ if r.status_code == 200:
 
 
 
-r = requests.delete('http://dit.gonzalonazareno.org/redmine/projects/%s.xml'%id_project, params=payload)
+r = requests.delete(URL_BASE+'projects/%s.xml'%id_project, params=payload)
 
 
 if r.status_code==200:
  	print ("ok")
- else:
+else:
  	print ("Error: "+r.text)
 	
 

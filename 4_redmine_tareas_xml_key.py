@@ -1,14 +1,14 @@
 import requests
 from lxml import etree
 import os
+URL_BASE="https://dit.gonzalonazareno.org/redmine/"
 key=os.environ["key"]
-
 
 proyecto=input("Dime el nombre de un proyecto:")
 id_project=""
 
 payload = {'key':key}
-r=requests.get('http://dit.gonzalonazareno.org/redmine/projects.xml',params=payload)
+r=requests.get(URL_BASE+projects.xml',params=payload)
 if r.status_code == 200:
 	doc = etree.fromstring(r.text.encode ('utf-8'))
 	projects=doc.xpath("project")
@@ -18,7 +18,7 @@ if r.status_code == 200:
 
 
 payload = {'status_id':'open','limit':'5','project_id':id_project,'key':key}
-r=requests.get('http://dit.gonzalonazareno.org/redmine/issues.xml',params=payload)
+r=requests.get(URL_BASE+issues.xml',params=payload)
 if r.status_code == 200:
 	doc = etree.fromstring(r.text.encode ('utf-8'))
 	tareas=doc.xpath("issue")

@@ -19,11 +19,11 @@ if r.status_code == 200:
 			r=requests.get(URL_BASE+'/issues.xml',params=payload)
 			if r.status_code==200:
 				doc = etree.fromstring(r.text.encode ('utf-8'))
-				names=doc.xpath("issue/subject")
-				descriptions=doc.xpath("issue/description")	
+				names=doc.xpath("issue/subject/text()")
+				descriptions=doc.xpath("issue/description/text()")	
 				for name,desc in zip(names,descriptions):
-					print (name.text)
-					print (desc.text)
+					print (name)
+					print (desc)
 
 	if not encontrado:
 		print ("Proyecto no existe")
